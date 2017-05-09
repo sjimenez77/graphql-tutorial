@@ -1,0 +1,24 @@
+{
+  "name": "graphql-tutorial",
+  "version": "1.0.0",
+  "description": "GraphQL tutorial",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Santos Jiménez",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.2",
+    "express-graphql": "^0.6.4",
+    "graphql": "^0.9.6"
+  },
+  "devDependencies": {
+    "@types/express": "^4.0.35",
+    "@types/graphql": "^0.9.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sjimenez77/graphql-tutorial"
+  }
+}

@@ -8,18 +8,45 @@ app.set("port", process.env.PORT || 4000);
 
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema(`
+  type RandomDie {
+    numSides: Int!
+    rollOnce: Int!
+    roll(numRolls: Int!): [Int]
+  }
+
   type Query {
     hello: String,
     quoteOfTheDay: String
     random: Float!
     rollThreeDice: [Int],
     rollDice(numDice: Int!, numSides: Int): [Int]
+    getDie(numSides: Int): RandomDie
   }
 `);
 
+// This class implements the RandomDie GraphQL type
+class RandomDie {
+  public numSides: any;
+  constructor(numSides: any) {
+    this.numSides = numSides;
+  }
+
+  public rollOnce() {
+    return 1 + Math.floor(Math.random() * this.numSides);
+  }
+
+  public roll({numRolls}: any) {
+    let output = [];
+    for (let i = 0; i < numRolls; i++) {
+      output.push(this.rollOnce());
+    }
+    return output;
+  }
+}
+
 // The root provides a resolver function for each API endpoint
 const root = {
-  hello: () => {
+   hello: () => {
     return "Hello World!";
   },
   quoteOfTheDay: () => {
@@ -37,6 +64,9 @@ const root = {
       output.push(1 + Math.floor(Math.random() * (args.numSides || 6)));
     }
     return output;
+  },
+  getDie: ({numSides}: any) => {
+    return new RandomDie(numSides || 6);
   },
 };
 
